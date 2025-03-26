@@ -1,3 +1,6 @@
+
+const roles = [];
+
 function generateRole() {
     // Get the total number of players from the input field
     const totalPlayers = parseInt(document.getElementById('total-players').value, 10);
@@ -18,7 +21,6 @@ function generateRole() {
     }
 
     // Create an array of roles
-    const roles = [];
     for (let i = 0; i < totalPlayers - numImposters - numJesters - numdoctors - numSheriffs; i++) {
         roles.push('Crew');
     }
@@ -50,7 +52,7 @@ function generateRole() {
     // Display roles
     const roleDisplay = document.getElementById('role-display');
     roleDisplay.innerHTML = ''; // Clear any previous content
-    roleDisplay.innerHTML += `<p>Player 1: ${role[0]}</p>`;
+    roleDisplay.innerHTML += `<p>Player 1: ${roles[1]}</p>`;
     /*roles.forEach((role, index) => {
         roleDisplay.innerHTML += `<p>Player ${index + 1}: ${role}</p>`;
     });*/
