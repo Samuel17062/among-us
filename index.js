@@ -1,8 +1,11 @@
 
 const roles = [];
+let currRole = 0;
+let globalPlayers;
 
 function generateRole() {
     // Get the total number of players from the input field
+    currRole = 0;
     const totalPlayers = parseInt(document.getElementById('total-players').value, 10);
 
     // Ensure there are at least 3 players and enough roles
@@ -11,7 +14,7 @@ function generateRole() {
         return;
     }
 
-    const numImposters = 1; 
+    const numImposters = 1; //Number of Imposters
     const numJesters = 1; // Number of jesters
     const numdoctors = 1; // Number of doctors
     const numSheriffs = 1; // Number of numSheriffs
@@ -52,7 +55,7 @@ function generateRole() {
     // Display roles
     const roleDisplay = document.getElementById('role-display');
     roleDisplay.innerHTML = ''; // Clear any previous content
-    roleDisplay.innerHTML += `<p>Player 1: ${roles[1]}</p>`;
+    roleDisplay.innerHTML += `<p>Player ${currRole + 1}: ${roles[0]}</p>`;
     /*roles.forEach((role, index) => {
         roleDisplay.innerHTML += `<p>Player ${index + 1}: ${role}</p>`;
     });*/
@@ -76,8 +79,23 @@ function generateRole() {
         resultDiv.textContent = 'You are a crewmate!';
         resultDiv.style.color = 'green';
     }
+
+    globalPlayers = totalPlayers;
 }
 
 function showNext(){
+    console.log("Global players: " + globalPlayers);
+    console.log("CurrRole: " + currRole);
+    if( currRole >= globalPlayers - 1){
+        const nextDiplay = document.getElementById("next-role");
+        nextDiplay.innerHTML = '';
+        const roleDisplay = document.getElementById("role-display");
+        roleDisplay.innerHTML = '';
+        return
+    }
+    const roleDisplay = document.getElementById("role-display");
+    currRole = currRole + 1;
+    roleDisplay.innerHTML = '';
+    roleDisplay.innerHTML += `<p>Player ${currRole + 1}: ${roles[currRole]}</p>`;
 
 }
