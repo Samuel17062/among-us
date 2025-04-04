@@ -14,17 +14,20 @@ function generateRole() {
         return;
     }
 
-    const numImposters = 1; //Number of Imposters
+    const numImposters = 1; // Number of Imposters
     const numJesters = 1; // Number of jesters
-    const numdoctors = 1; // Number of doctors
-    const numSheriffs = 1; // Number of numSheriffs
-    if (totalPlayers <= numImposters + numJesters + numSheriffs + numdoctors) {
-        alert('There must be more players than imposters, jesters,doctors and sheriffs combined.');
+    const numDoctors = 1; // Number of doctors
+    const numSheriffs = 1; // Number of sheriffs
+    const numJanitors = 1; // Number of Janitors
+
+    // Ensure there are more players than the total roles
+    if (totalPlayers <= numImposters + numJesters + numSheriffs + numDoctors + numJanitors) {
+        alert('There must be more players than imposters, jesters, doctors, sheriffs, and janitors combined.');
         return;
     }
 
     // Create an array of roles
-    for (let i = 0; i < totalPlayers - numImposters - numJesters - numdoctors - numSheriffs; i++) {
+    for (let i = 0; i < totalPlayers - numImposters - numJesters - numDoctors - numSheriffs - numJanitors; i++) {
         roles.push('Crew');
     }
     for (let i = 0; i < numImposters; i++) {
@@ -33,11 +36,14 @@ function generateRole() {
     for (let i = 0; i < numJesters; i++) {
         roles.push('Jester');
     }
-    for (let i = 0; i < numdoctors; i++) {
-        roles.push('doctor');
+    for (let i = 0; i < numDoctors; i++) {
+        roles.push('Doctor');
     }
     for (let i = 0; i < numSheriffs; i++) {
-        roles.push('sheriff');
+        roles.push('Sheriff');
+    }
+    for (let i = 0; i < numJanitors; i++) {
+        roles.push('Janitor'); // Fixed typo (Janiter -> Janitor)
     }
 
     // Shuffle the roles array
@@ -46,23 +52,18 @@ function generateRole() {
         [roles[i], roles[j]] = [roles[j], roles[i]]; // Swap elements
     }
 
-
-    // create new button Next
-    const nextRole = document.getElementById('next-role')
+    // Create new button for Next
+    const nextRole = document.getElementById('next-role');
     nextRole.innerHTML = '';
-    nextRole.innerHTML = `<button onClick=showNext() >Next</button>`;
+    nextRole.innerHTML = `<button onClick="showNext()">Next</button>`;
 
-    // Display roles
+    // Display the first role
     const roleDisplay = document.getElementById('role-display');
-    roleDisplay.innerHTML = ''; // Clear any previous content
-    roleDisplay.innerHTML += `<p>Player ${currRole + 1}: ${roles[0]}</p>`;
-    /*roles.forEach((role, index) => {
-        roleDisplay.innerHTML += `<p>Player ${index + 1}: ${role}</p>`;
-    });*/
+    roleDisplay.innerHTML = ''; // Clear previous content
+    roleDisplay.innerHTML += `<p>Player ${currRole + 1}: ${roles[currRole]}</p>`;
 
-    // Display the role of the current player (for demonstration, we'll use a fixed index)
-    const currentPlayerIndex = 0; // Example index for the current player
-    const currentRole = roles[currentPlayerIndex];
+    // Display the role of the current player
+    const currentRole = roles[currRole];
     const resultDiv = document.getElementById('result');
 
     // Display the role and set the text color
@@ -72,30 +73,37 @@ function generateRole() {
     } else if (currentRole === 'Jester') {
         resultDiv.textContent = 'You are the jester!';
         resultDiv.style.color = 'purple';
-    } else if (currentRole === 'doctor') {
+    } else if (currentRole === 'Doctor') {
         resultDiv.textContent = 'You are the doctor!';
         resultDiv.style.color = 'blue';
+    } else if (currentRole === 'Janitor') {
+        resultDiv.textContent = 'You are the Janitor!';
+        resultDiv.style.color = 'yellow';
     } else {
         resultDiv.textContent = 'You are a crewmate!';
         resultDiv.style.color = 'green';
     }
 
-    globalPlayers = totalPlayers;
+    globalPlayers = totalPlayers; // Save total players for later use
 }
 
-function showNext(){
+// The function that is called when the "Next" button is clicked
+function showNext() {
     console.log("Global players: " + globalPlayers);
     console.log("CurrRole: " + currRole);
-    if( currRole >= globalPlayers - 1){
+
+    // Check if all players' roles have been displayed
+    if (currRole >= globalPlayers - 1) {
         const nextDiplay = document.getElementById("next-role");
         nextDiplay.innerHTML = '';
         const roleDisplay = document.getElementById("role-display");
         roleDisplay.innerHTML = '';
-        return
+        return;
     }
-    const roleDisplay = document.getElementById("role-display");
-    currRole = currRole + 1;
-    roleDisplay.innerHTML = '';
-    roleDisplay.innerHTML += `<p>Player ${currRole + 1}: ${roles[currRole]}</p>`;
 
+    // Display the next player's role
+    const roleDisplay = document.getElementById("role-display");
+    currRole++;
+    roleDisplay.innerHTML = ''; // Clear previous content
+    roleDisplay.innerHTML += `<p>Player ${currRole + 1}: ${roles[currRole]}</p>`;
 }
