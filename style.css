@@ -22,10 +22,6 @@ body{
     text-align: center;
 }
 
-div {
-    font-size: 80px;
-}
-
 button {
     font-size: 40px;
 }
@@ -33,4 +29,8 @@ button {
 input  {
    
     font-size: 80px;
+}
+
+a {
+    color: aliceblue;
 }
