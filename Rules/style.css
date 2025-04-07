@@ -1,0 +1,36 @@
+.box {
+    margin: 20px;
+    padding: 10px;
+}
+
+#result {
+    display: none; /* Hide result by default */
+}
+
+.enter-button {
+    margin-top: 10px;
+}
+
+.hide {
+    margin-top: 10px;
+}
+
+body{
+    background-image: url(./img/wall_paper.png);
+    color: #FFF;
+    font-size: large;
+    text-align: center;
+}
+
+div {
+    font-size: 80px;
+}
+
+button {
+    font-size: 40px;
+}
+
+input  {
+   
+    font-size: 80px;
+}
